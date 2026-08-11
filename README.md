@@ -1,9 +1,4 @@
-# NIDS — Network Intrusion Detection System
-
-Lightweight, explainable NIDS built for the assignment in `SUBJECT_1786457092058.pdf`.
-It captures or replays traffic, reconstructs bidirectional 5-tuple flows, extracts
-28 features, runs a persisted scikit-learn model and a rule engine, stores results
-in SQLite, and exposes a small dashboard.
+# NIDS
 
 ## Quick start
 
