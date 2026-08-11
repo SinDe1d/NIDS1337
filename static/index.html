@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>NIDS Control Room</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">NETWORK SECURITY / LIVE MONITOR</p>
+          <h1>NIDS Control Room</h1>
+          <p class="muted">Flow detection, explainable rules, and ML alerts in one view.</p>
+        </div>
+        <div class="status"><span></span> Pipeline ready</div>
+      </header>
+
+      <section class="stats" aria-label="System summary">
+        <article class="stat"><span>Flows processed</span><strong id="flows">0</strong></article>
+        <article class="stat"><span>Alerts raised</span><strong id="alerts">0</strong></article>
+        <article class="stat"><span>High confidence</span><strong id="high">0</strong></article>
+        <article class="stat"><span>Stored activity</span><strong id="active">0</strong></article>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">DETECTION FEED</p>
+            <h2>Recent alerts</h2>
+          </div>
+          <div class="filters">
+            <select id="typeFilter" aria-label="Filter by attack type">
+              <option value="">All attack types</option>
+              <option>Port Scan</option>
+              <option>SYN flood</option>
+              <option>Brute Force</option>
+            </select>
+            <button id="refresh">Refresh</button>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Type</th><th>Confidence</th><th>Source</th><th>Destination</th><th>Time</th><th></th></tr></thead>
+            <tbody id="alertRows"><tr><td colspan="6" class="empty">No alerts yet. Replay a PCAP to populate the feed.</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div>
+            <p class="eyebrow">FLOW TELEMETRY</p>
+            <h2>Recent flows</h2>
+          </div>
+          <input id="search" placeholder="Filter IP address" aria-label="Filter flows" />
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Source</th><th>Destination</th><th>Protocol</th><th>Packets</th><th>Bytes</th><th>Duration</th></tr></thead>
+            <tbody id="flowRows"><tr><td colspan="6" class="empty">No flow data yet.</td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <div id="drawer" class="drawer hidden" role="dialog" aria-modal="true" aria-label="Alert details">
+        <div class="drawer-card">
+          <button id="closeDrawer" class="close" aria-label="Close details">×</button>
+          <p class="eyebrow">ALERT DETAIL</p>
+          <h2 id="detailTitle">Alert</h2>
+          <div id="detailBody"></div>
+          <div class="actions">
+            <button data-feedback="true_positive">Mark true positive</button>
+            <button class="secondary" data-feedback="false_positive">Mark false positive</button>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="/static/app.js"></script>
+  </body>
+</html>

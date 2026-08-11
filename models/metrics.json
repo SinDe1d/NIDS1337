@@ -1,0 +1,185 @@
+{
+  "dataset": "built-in deterministic demo dataset",
+  "rows": 320,
+  "features": [
+    "duration",
+    "total_fwd_packets",
+    "total_bwd_packets",
+    "total_fwd_bytes",
+    "total_bwd_bytes",
+    "packet_size_mean",
+    "packet_size_std",
+    "packet_size_min",
+    "packet_size_max",
+    "fwd_packet_size_mean",
+    "bwd_packet_size_mean",
+    "iat_mean",
+    "iat_std",
+    "iat_min",
+    "iat_max",
+    "syn_count",
+    "ack_count",
+    "fin_count",
+    "rst_count",
+    "psh_count",
+    "urg_count",
+    "flow_bytes_per_second",
+    "flow_packets_per_second",
+    "bwd_fwd_packet_ratio",
+    "bwd_fwd_byte_ratio",
+    "down_up_byte_ratio",
+    "active_packet_span",
+    "tcp_flag_total"
+  ],
+  "models": {
+    "logistic_regression": {
+      "macro_f1": 0.9749843652282677,
+      "classification_report": {
+        "Benign": {
+          "precision": 0.9523809523809523,
+          "recall": 1.0,
+          "f1-score": 0.975609756097561,
+          "support": 20.0
+        },
+        "Brute Force": {
+          "precision": 1.0,
+          "recall": 0.95,
+          "f1-score": 0.9743589743589743,
+          "support": 20.0
+        },
+        "Port Scan": {
+          "precision": 0.9523809523809523,
+          "recall": 1.0,
+          "f1-score": 0.975609756097561,
+          "support": 20.0
+        },
+        "SYN flood": {
+          "precision": 1.0,
+          "recall": 0.95,
+          "f1-score": 0.9743589743589743,
+          "support": 20.0
+        },
+        "accuracy": 0.975,
+        "macro avg": {
+          "precision": 0.9761904761904762,
+          "recall": 0.9750000000000001,
+          "f1-score": 0.9749843652282677,
+          "support": 80.0
+        },
+        "weighted avg": {
+          "precision": 0.9761904761904763,
+          "recall": 0.975,
+          "f1-score": 0.9749843652282676,
+          "support": 80.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          20,
+          0,
+          0,
+          0
+        ],
+        [
+          1,
+          19,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          20,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          19
+        ]
+      ],
+      "labels": [
+        "Benign",
+        "Brute Force",
+        "Port Scan",
+        "SYN flood"
+      ]
+    },
+    "random_forest": {
+      "macro_f1": 1.0,
+      "classification_report": {
+        "Benign": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "Brute Force": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "Port Scan": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "SYN flood": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 20.0
+        },
+        "accuracy": 1.0,
+        "macro avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 80.0
+        },
+        "weighted avg": {
+          "precision": 1.0,
+          "recall": 1.0,
+          "f1-score": 1.0,
+          "support": 80.0
+        }
+      },
+      "confusion_matrix": [
+        [
+          20,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          20,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          20,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          20
+        ]
+      ],
+      "labels": [
+        "Benign",
+        "Brute Force",
+        "Port Scan",
+        "SYN flood"
+      ]
+    }
+  },
+  "selected_model": "random_forest"
+}
