@@ -1,3 +1,5 @@
+import time
+
 from scapy.all import IP, TCP, UDP, sniff
 
 from .flows import FlowTable
@@ -49,6 +51,11 @@ class PacketCapture:
             tcp_flags=tcp_flags,
         )
 
+        self._print_packet(flow)
+
+        self._expire_flows(timestamp)
+
+    def _print_packet(self, flow):
         print(
             f"{flow.src_ip}:{flow.src_port} "
             f"-> {flow.dst_ip}:{flow.dst_port} "
@@ -56,14 +63,46 @@ class PacketCapture:
             f"bytes={flow.total_bytes()}"
         )
 
+    def _expire_flows(self, current_time):
+        expired = self.flow_table.expire(current_time)
+
+        for flow in expired:
+            self._handle_completed_flow(flow)
+
+    def _handle_completed_flow(self, flow):
+        print(
+            "\n[FLOW COMPLETE]"
+            f"\n  {flow.src_ip}:{flow.src_port}"
+            f" -> {flow.dst_ip}:{flow.dst_port}"
+            f"\n  protocol: {flow.protocol}"
+            f"\n  duration: {flow.duration():.3f}s"
+            f"\n  packets: {flow.total_packets()}"
+            f"\n  bytes: {flow.total_bytes()}"
+            f"\n"
+        )
+
+    def finish(self):
+        """
+        Finish all currently active flows.
+
+        This is useful when stopping a capture or
+        finishing a PCAP replay.
+        """
+        for flow in self.flow_table.clear():
+            self._handle_completed_flow(flow)
+
     def start(self):
         print("Starting packet capture...")
 
         if self.interface:
             print(f"Interface: {self.interface}")
 
-        sniff(
-            iface=self.interface,
-            prn=self.handle_packet,
-            store=False,
-        )
+        try:
+            sniff(
+                iface=self.interface,
+                prn=self.handle_packet,
+                store=False,
+            )
+        except KeyboardInterrupt:
+            print("\nStopping capture...")
+            self.finish()
