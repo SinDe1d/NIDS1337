@@ -82,3 +82,7 @@ educational baseline, not a replacement for Suricata, Zeek, or a commercial IDS.
 The built-in demo dataset is synthetic and is only for validating the software
 path. Real model quality depends on dataset cleaning, class balance, leakage
 prevention, threshold tuning, and testing on traffic unlike the training data.
+
+
+==============================================================================================================================
+THIS IS MADE BY ADAM aka (SinDe1d) ... enjoy :)
